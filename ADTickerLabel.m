@@ -402,20 +402,23 @@
 
 - (CGRect)characterViewFrameWithContentBounds:(CGRect)frame
 {
-   CGFloat charactersWidth = [self.characterViewsArray count] * self.characterWidth;
-   frame.size.width = charactersWidth;
+   CGFloat textWidth = [self.characterViewsArray count] * self.characterWidth;
+   CGFloat textHeight = self.font.lineHeight;
+   frame.size.width = textWidth;
+   frame.size.height = textHeight;
+   frame.origin.y = (self.bounds.size.height - textHeight) / 2.f;
 
    switch (self.textAlignment)
    {
       case NSTextAlignmentRight:
-         frame.origin.x = self.frame.size.width - charactersWidth;
+         frame.origin.x = self.frame.size.width - textWidth;
          break;
       case NSTextAlignmentCenter:
-         frame.origin.x = (self.frame.size.width - charactersWidth) / 2;
+         frame.origin.x = (self.frame.size.width - textWidth) / 2.f;
          break;
       case NSTextAlignmentLeft:
       default:
-         frame.origin.x = 0.0;
+         frame.origin.x = 0.f;
          break;
    }
    
